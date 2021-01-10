@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List Package{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style type="text/css">
+        .table.dataTable thead th, table.dataTable thead td{
+            border-bottom:none !important;
+        }
+        table.dataTable.no-footer{
+            border-bottom: none !important;
+        }
+        .dataTables_wrapper .dataTables_filter input {
+            border-color: white;
+        }
+    </style>
+
+{% endblock %}
+
+
+{% block content %}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Packages</h1>
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped table-bordered" id="packageTable">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>CustomerName</th>
+                            <th>TrackingNumber</th>
+                            <th>Address</th>
+                            <th>Address2</th>
+                            <th>City</th>
+                            <th>State</th>
+                            <th>Country</th>
+                            <th>ZipCode</th>
+                            <th>OrderValue</th>
+                            <th>actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for package in packages %}
+                        <tr>
+                            <td>{{ package.id }}</td>
+                            <td>{{ package.customerName }}</td>
+                            <td>{{ package.trackingNumber }}</td>
+                            <td>{{ package.address }}</td>
+                            <td>{{ package.address2 }}</td>
+                            <td>{{ package.city }}</td>
+                            <td>{{ package.state }}</td>
+                            <td>{{ package.country }}</td>
+                            <td>{{ package.zipCode }}</td>
+                            <td>{{ package.orderValue }}</td>
+                            <td>
+                                <a href="{{ path('package_show', {'id': package.id}) }}">show</a>
+                                <a href="{{ path('package_edit', {'id': package.id}) }}">edit</a>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="11">no records found</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <a href="{{ path('package_new') }}">Create new</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#packageTable').dataTable();
+        });
+    </script>
+{% endblock %}

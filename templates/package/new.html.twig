@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+
+{% block title %}New Package{% endblock %}
+
+{% block content %}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">New Package</h1>
+</div>
+
+<!--Content Row -->
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="row">
+
+            <div class="col-md-8">
+                {{ include('package/_form.html.twig') }}
+
+                <a href="{{ path('package_index') }}">back to list</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
