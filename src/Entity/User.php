@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -51,6 +53,28 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $lastName;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Timesheet::class, mappedBy="user")
+     */
+    private $timesheets;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Leave::class, mappedBy="user")
+     */
+    private $leaves;
+
+    /**
+     * @ORM\OneToMany(targetEntity=LeaveCredit::class, mappedBy="user")
+     */
+    private $leaveCredits;
+
+    public function __construct()
+    {
+        $this->timesheets = new ArrayCollection();
+        $this->leaves = new ArrayCollection();
+        $this->leaveCredits = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -162,6 +186,100 @@ class User implements UserInterface
     public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Timesheet[]
+     */
+    public function getTimesheets(): Collection
+    {
+        return $this->timesheets;
+    }
+
+    public function addTimesheet(Timesheet $timesheet): self
+    {
+        if (!$this->timesheets->contains($timesheet)) {
+            $this->timesheets[] = $timesheet;
+            $timesheet->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTimesheet(Timesheet $timesheet): self
+    {
+        if ($this->timesheets->removeElement($timesheet)) {
+            // set the owning side to null (unless already changed)
+            if ($timesheet->getUser() === $this) {
+                $timesheet->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Leave[]
+     */
+    public function getLeaves(): Collection
+    {
+        return $this->leaves;
+    }
+
+    public function addLeaf(Leave $leaf): self
+    {
+        if (!$this->leaves->contains($leaf)) {
+            $this->leaves[] = $leaf;
+            $leaf->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLeaf(Leave $leaf): self
+    {
+        if ($this->leaves->removeElement($leaf)) {
+            // set the owning side to null (unless already changed)
+            if ($leaf->getUser() === $this) {
+                $leaf->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+    public function __tostring()
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
+
+    /**
+     * @return Collection|LeaveCredit[]
+     */
+    public function getLeaveCredits(): Collection
+    {
+        return $this->leaveCredits;
+    }
+
+    public function addLeaveCredit(LeaveCredit $leaveCredit): self
+    {
+        if (!$this->leaveCredits->contains($leaveCredit)) {
+            $this->leaveCredits[] = $leaveCredit;
+            $leaveCredit->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLeaveCredit(LeaveCredit $leaveCredit): self
+    {
+        if ($this->leaveCredits->removeElement($leaveCredit)) {
+            // set the owning side to null (unless already changed)
+            if ($leaveCredit->getUser() === $this) {
+                $leaveCredit->setUser(null);
+            }
+        }
 
         return $this;
     }

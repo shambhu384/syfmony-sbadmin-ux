@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Timesheet{% endblock %}
+
+{% block content %}
+    <h1>Timesheet</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ timesheet.id }}</td>
+            </tr>
+            <tr>
+                <th>WorkDay</th>
+                <td>{{ timesheet.workDay ? timesheet.workDay|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Hour</th>
+                <td>{{ timesheet.hour }}</td>
+            </tr>
+            <tr>
+                <th>Comment</th>
+                <td>{{ timesheet.comment }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('timesheet_index') }}">back to list</a>
+
+    <a href="{{ path('timesheet_edit', {'id': timesheet.id}) }}">edit</a>
+
+    {{ include('timesheet/_delete_form.html.twig') }}
+{% endblock %}

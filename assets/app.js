@@ -10,6 +10,7 @@
 import './styles/app.scss';
 
 import 'datatables/media/css/jquery.dataTables.css';
+import 'bootstrap-datepicker/dist/css/bootstrap-datepicker.css';
 
 
 const $ = require('jquery');
@@ -19,6 +20,7 @@ import './bootstrap';
 
 require('bootstrap');
 require('datatables');
+require('bootstrap-datepicker');
 require('./sbadmin');
 require('@fortawesome/fontawesome-free/css/all.min.css');
 require('@fortawesome/fontawesome-free/js/all.js');

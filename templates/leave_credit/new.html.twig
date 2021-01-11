@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New LeaveCredit{% endblock %}
+
+{% block content %}
+    <h1>Create new LeaveCredit</h1>
+
+    {{ include('leave_credit/_form.html.twig') }}
+
+    <a href="{{ path('leave_credit_index') }}">back to list</a>
+{% endblock %}

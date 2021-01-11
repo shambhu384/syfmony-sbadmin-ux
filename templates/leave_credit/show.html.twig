@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LeaveCredit{% endblock %}
+
+{% block content %}
+    <h1>LeaveCredit</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ leave_credit.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('leave_credit_index') }}">back to list</a>
+
+    <a href="{{ path('leave_credit_edit', {'id': leave_credit.id}) }}">edit</a>
+
+    {{ include('leave_credit/_delete_form.html.twig') }}
+{% endblock %}

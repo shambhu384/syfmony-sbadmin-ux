@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Timesheet{% endblock %}
+
+{% block content %}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Timesheet</h1>
+</div>
+
+
+
+<!--Content Row -->
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="row">
+
+            {# read and display just one flash message type #}
+            {% for message in app.flashes('notice') %}
+            <div class="col-md-12">
+                <div class="flash-notice alert alert-success">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="col-md-8">
+                {{ include('timesheet/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <h5 class="card-header"> History</h5>
+    <div class="card-body">
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th width="10%">WorkDay</th>
+                        <th width="80%">Comment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for timesheet in timesheets %}
+                    <tr>
+                        <td with="10%">{{ timesheet.workDay ? timesheet.workDay|date('Y-m-d') : '' }}</td>
+                        <td>{{ timesheet.comment }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5">no records found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+<script>
+    $(document).ready(function() {
+        // you may need to change this code if you are not using Bootstrap Datepicker
+        $('.js-datepicker').datepicker({
+            format: 'yyyy-mm-dd'
+        });
+    });
+</script>
+{% endblock %}

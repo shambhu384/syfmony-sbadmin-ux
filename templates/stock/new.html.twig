@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Stock{% endblock %}
+
+{% block content %}
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Add new Stock</h1>
+</div>
+<div class="row">
+    {# read and display just one flash message type #}
+    {% for message in app.flashes('notice') %}
+    <div class="col-md-12">
+        <div class="flash-notice alert alert-success">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="col-md-4">
+
+        <div class="card shadow">
+            <h5 class="card-header">Add new</h5>
+            <div class="card-body">
+                {{ include('stock/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card shadow">
+            <h5 class="card-header">List</h5>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>OwnerName</th>
+                            <th>actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stock in stocks %}
+                        <tr>
+                            <td>{{ stock.id }}</td>
+                            <td>{{ stock.name }}</td>
+                            <td>{{ stock.ownerName }}</td>
+                            <td>
+                                <a href="{{ path('stock_show', {'id': stock.id}) }}">show</a>
+                                <a href="{{ path('stock_edit', {'id': stock.id}) }}">edit</a>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="4">no records found</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
