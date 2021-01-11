@@ -29,6 +29,12 @@ class Leave
         self::REJECT => 'Reject'
     ];
 
+    public const LEAVE_ACTION = [
+        self::APPROVED => 'Approved',
+        self::REJECT => 'Reject'
+    ];
+
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -64,6 +70,7 @@ class Leave
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $approvedBy;
 

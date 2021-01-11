@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Leave Applications{% endblock %}
+
+{% block content %}
+{% set leaveDayOptions = constant('App\\Entity\\Leave::LEAVE_DAY_OPTIONS') %}
+{% set LEAVE_REQUESTED = constant('App\\Entity\\Leave::REQUESTED') %}
+{% set status = constant('App\\Entity\\Leave::LEAVE_STATUS') %}
+<div class="col-md-12">
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Leave Applications</h6>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>LeaveType Type</th>
+                        <th>FromDate</th>
+                        <th>ToDate</th>
+                        <th>Status</th>
+                        <th>Type</th>
+                        <th>Reason</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for leave in leaves %}
+                    <tr>
+                        <td>{{ leave.user.firstName ~ ' ' ~ leave.user.lastName }}</td>
+                        <td>{{ leave.leaveType }}</td>
+                        <td>{{ leave.fromDate ? leave.fromDate|date('Y-m-d') : '' }}</td>
+                        <td>{{ leave.toDate ? leave.toDate|date('Y-m-d') : 'N/A' }}</td>
+                        <td>{{ status[leave.status] }}</td>
+                        <td>{{ leaveDayOptions[leave.type] }}</td>
+                        <td>{{ leave.reason }}</td>
+                        <td>
+                            {% if leave.status != LEAVE_REQUESTED %}
+                                <a href="{{ path('leave_application_action', {'id': leave.id}) }}" class="btn btn-primary" >Action</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5">no records found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

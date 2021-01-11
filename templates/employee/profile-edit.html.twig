@@ -1,16 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Leave{% endblock %}
+{% block title %}Update Details{% endblock %}
 
 {% block content %}
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Apply Leave</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Update Details</h6>
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col-md-12">
-            {{ include('leave/_form.html.twig') }}
+
+                {{ include('employee/_form.html.twig', {'button_label': 'Update'}) }}
             </div>
         </div>
     </div>

@@ -57,6 +57,7 @@ class OnboardingController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $onboarding->setUser($this->getUser());
+            $onboarding->setCreatedAt(new \DateTime('now'));
             $entityManager->persist($onboarding);
             $entityManager->flush();
             $this->addFlash(

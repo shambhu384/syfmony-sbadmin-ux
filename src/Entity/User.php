@@ -69,6 +69,56 @@ class User implements UserInterface
      */
     private $leaveCredits;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $joinedDate;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateOfBirth;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $aadharNumber;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $profilePic;
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $gender;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $profession;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $phone;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $emergencyContact;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
     public function __construct()
     {
         $this->timesheets = new ArrayCollection();
@@ -280,6 +330,126 @@ class User implements UserInterface
                 $leaveCredit->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getJoinedDate(): ?\DateTimeInterface
+    {
+        return $this->joinedDate;
+    }
+
+    public function setJoinedDate(?\DateTimeInterface $joinedDate): self
+    {
+        $this->joinedDate = $joinedDate;
+
+        return $this;
+    }
+
+    public function getDateOfBirth(): ?\DateTimeInterface
+    {
+        return $this->dateOfBirth;
+    }
+
+    public function setDateOfBirth(?\DateTimeInterface $dateOfBirth): self
+    {
+        $this->dateOfBirth = $dateOfBirth;
+
+        return $this;
+    }
+
+    public function getAadharNumber(): ?string
+    {
+        return $this->aadharNumber;
+    }
+
+    public function setAadharNumber(?string $aadharNumber): self
+    {
+        $this->aadharNumber = $aadharNumber;
+
+        return $this;
+    }
+
+    public function getProfilePic(): ?string
+    {
+        return $this->profilePic;
+    }
+
+    public function setProfilePic(?string $profilePic): self
+    {
+        $this->profilePic = $profilePic;
+
+        return $this;
+    }
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(?string $gender): self
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    public function getProfession(): ?string
+    {
+        return $this->profession;
+    }
+
+    public function setProfession(?string $profession): self
+    {
+        $this->profession = $profession;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getEmergencyContact(): ?string
+    {
+        return $this->emergencyContact;
+    }
+
+    public function setEmergencyContact(string $emergencyContact): self
+    {
+        $this->emergencyContact = $emergencyContact;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

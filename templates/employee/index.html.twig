@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Leave index{% endblock %}
+
+{% block content %}
+<div class="col-md-8">
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Employees</h6>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>View</th>
+                        <th>Login As</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for employee in employees %}
+                    <tr>
+                        <td>
+                            {{ employee.id }}
+                        </td>
+                     
+                        <td>
+                            {% if employee.profilePic %}
+                                <img src="{{ asset('/uploads/profile/' ~ employee.profilePic)}}" alt="" class="img-profile rounded-circle" style="width:40px;height:40px"/>
+                            {% else %}
+                                <img src="{{ asset('images/avaator.png')}}" alt=""/>
+                            {% endif%}
+                            {{ employee.firstName|capitalize ~ ' ' ~ employee.lastName }}
+                        </td>
+                        <td>
+                            <a href="{{ path('employee_profile', {'id': employee.id}) }}">view</a>
+                        </td>
+                        <td>
+                            <a href="{{ path('app_index', {'_switch_user': employee.email}) }}" data-no-swup>Login As</a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5">no records found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

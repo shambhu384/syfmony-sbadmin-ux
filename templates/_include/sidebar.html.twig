@@ -74,28 +74,20 @@
             Employee
         </div>
 
-        <!-- Nav Item - Pages Collapse Menu 
+        {% if is_granted('ROLE_ADMIN') %}
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                                                                           aria-expanded="true" aria-controls="collapsePages" data-no-swup>
                 <i class="fas fa-fw fa-folder"></i>
-                <span>Leave</span>
+                <span>Employees</span>
             </a>
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Login Screens:</h6>
-                    <a class="collapse-item" href="login.html">Login</a>
-                    <a class="collapse-item" href="register.html">Register</a>
-                    <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                    <div class="collapse-divider"></div>
-                    <h6 class="collapse-header">Other Pages:</h6>
-                    <a class="collapse-item" href="404.html">404 Page</a>
-                    <a class="collapse-item" href="blank.html">Blank Page</a>
+                    <a class="collapse-item" href="{{ path('employee_index') }}">Employees</a>
                 </div>
             </div>
-        </li> -->
-
-
+        </li>
+        {% endif %}
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
@@ -105,20 +97,31 @@
             </a>
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ path('leave_new') }}">Apply Leave</a>
-                    <a class="collapse-item" href="{{ path('leave_index') }}">Leave Applications</a>
-                    <a class="collapse-item" href="{{ path('leave_credit') }}">Leave Credit</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a class="collapse-item" href="{{ path('leave_applications') }}">Leave Applications</a>
+                    {% else %}
+                        <a class="collapse-item" href="{{ path('leave_new') }}">Apply Leave</a>
+                        <a class="collapse-item" href="{{ path('leave_index') }}">Leave Applications</a>
+                        <a class="collapse-item" href="{{ path('leave_credit') }}">Leave Credit</a>
+                    {% endif %}
                 </div>
             </div>
         </li>
 
         <!-- Nav Item - Charts -->
+        {% if is_granted('ROLE_ADMIN') %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('timesheet_index') }}">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Timesheet</span></a>
+        </li>
+        {% else %}
         <li class="nav-item">
             <a class="nav-link" href="{{ path('timesheet_new') }}">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>Timesheet</span></a>
         </li>
-
+        {% endif %}
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 

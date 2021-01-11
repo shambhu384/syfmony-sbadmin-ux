@@ -30,14 +30,9 @@ class Stock
     private $ownerName;
 
     /**
-     * @ORM\OneToMany(targetEntity=Timesheet::class, mappedBy="stock")
+     * @ORM\Column(type="datetime")
      */
-    private $timesheets;
-
-    public function __construct()
-    {
-        $this->timesheets = new ArrayCollection();
-    }
+    private $createdAt;
 
     public function getId(): ?int
     {
@@ -71,5 +66,17 @@ class Stock
     public function __tostring()
     {
         return $this->name;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
     }
 }
