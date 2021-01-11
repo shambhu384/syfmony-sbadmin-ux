@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
+use Symfony\UX\Chartjs\Model\Chart;
 
 /**
  * @Route("/package")
@@ -95,12 +97,34 @@ class PackageController extends AbstractController
     /**
      * @Route("/track", name="package_track", priority=10, methods={"GET"})
      */
-    public function track(PackageRepository $packageRepository): Response
+    public function track(PackageRepository $packageRepository, ChartBuilderInterface $chartBuilder): Response
     {
+        $chart = $chartBuilder->createChart(Chart::TYPE_BAR);
+        $chart->setData([
+            'labels' => ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            'datasets' => [
+                [
+                    'label' => 'My First dataset',
+                    'backgroundColor' => 'rgb(255, 99, 132)',
+                    'borderColor' => 'rgb(255, 99, 132)',
+                    'data' => [0, 10, 5, 2, 20, 30, 45],
+                ],
+                [
+                    'label' => 'Another',
+                    'backgroundColor' => 'rgb(255, 104, 132)',
+                    'borderColor' => 'rgb(255, 30, 132)',
+                    'data' => [0, 10, 5, 2, 20, 30, 2],
+                ],
+
+            ],
+        ]);
+
+        $chart->setOptions([
+            'steppedLine' => true
+        ]);
         return $this->render('package/track.html.twig', [
+            'chart' => $chart,
             'packages' => $packageRepository->findAll(),
         ]);
     }
-
-
 }

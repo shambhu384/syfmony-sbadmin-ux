@@ -15,18 +15,10 @@ import 'datatables/media/css/jquery.dataTables.css';
 const $ = require('jquery');
 global.$ = global.jQuery = $;
 
-// import './jquery-easing';
-// start the Stimulus application
+import './bootstrap';
+
 require('bootstrap');
-
 require('datatables');
-
 require('./sbadmin');
-
-
 require('@fortawesome/fontawesome-free/css/all.min.css');
 require('@fortawesome/fontawesome-free/js/all.js');
-
-
-
-
