@@ -11,6 +11,24 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Leave
 {
+    public const FULL_DAY_LEAVE = 1;
+    public const HALF_DAY_LEAVE = 2;
+
+    public const REQUESTED = 0;
+    public const APPROVED = 1;
+    public const REJECT = -1;
+
+    public const LEAVE_DAY_OPTIONS = [
+        self::FULL_DAY_LEAVE => 'Full Day',
+        self::HALF_DAY_LEAVE => 'Half Day'
+    ];
+
+    public const LEAVE_STATUS = [
+        self::REQUESTED => 'Requested',
+        self::APPROVED => 'Approved',
+        self::REJECT => 'Reject'
+    ];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -64,6 +82,11 @@ class Leave
      * @ORM\JoinColumn(nullable=false)
      */
     private $leaveType;
+
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $type;
 
     public function getId(): ?int
     {
@@ -174,6 +197,18 @@ class Leave
     public function setLeaveType(?LeaveType $leaveType): self
     {
         $this->leaveType = $leaveType;
+
+        return $this;
+    }
+
+    public function getType(): ?int
+    {
+        return $this->type;
+    }
+
+    public function setType(int $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

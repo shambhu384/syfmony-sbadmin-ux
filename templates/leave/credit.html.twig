@@ -8,7 +8,7 @@
 <div class="col-md-8">
     <div class="card shadow">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Leave Applications</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Leave Credit</h6>
         </div>
         <div class="card-body">
             <table class="table">
@@ -23,13 +23,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for leave in leaves %}
+                    {% for leave in leave_credits %}
                     <tr>
                         <td>{{ leave.leaveType }}</td>
-                        <td>{{ leave.fromDate ? leave.fromDate|date('Y-m-d') : '' }}</td>
-                        <td>{{ leave.toDate ? leave.toDate|date('Y-m-d') : 'N/A' }}</td>
-                        <td>{{ status[leave.status] }}</td>
-                        <td>{{ leaveDayOptions[leave.type] }}</td>
                         <td>{{ leave.reason }}</td>
                     </tr>
                     {% else %}

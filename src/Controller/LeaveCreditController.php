@@ -26,16 +26,6 @@ class LeaveCreditController extends AbstractController
     }
 
     /**
-     * @Route("/credit", name="leave_credit", methods={"GET"})
-     */
-    public function credit(LeaveCreditRepository $leaveCreditRepository): Response
-    {
-        return $this->render('leave_credit/index.html.twig', [
-            'leave_credits' => $leaveCreditRepository->findBy(['user' => $this->getUser()]),
-        ]);
-    }
-
-    /**
      * @Route("/new", name="leave_credit_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response

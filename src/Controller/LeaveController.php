@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Leave;
 use App\Form\LeaveType;
 use App\Repository\LeaveRepository;
+use App\Repository\LeaveCreditRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,6 +27,18 @@ class LeaveController extends AbstractController
     }
 
     /**
+     * @Route("/credit", name="leave_credit", methods={"GET"})
+     */
+    public function credit(LeaveCreditRepository $leaveCreditRepository): Response
+    {
+        return $this->render('leave/credit.html.twig', [
+            'leave_credits' => $leaveCreditRepository->findBy(['user' => $this->getUser()]),
+        ]);
+    }
+
+
+
+    /**
      * @Route("/new", name="leave_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
@@ -36,6 +49,9 @@ class LeaveController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $leave->setStatus(Leave::REQUESTED);
+            $leave->setUser($this->getUser());
+            $leave->setCreatedAt(new \DateTime('now'));
             $entityManager->persist($leave);
             $entityManager->flush();
 

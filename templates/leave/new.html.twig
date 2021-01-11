@@ -3,9 +3,16 @@
 {% block title %}New Leave{% endblock %}
 
 {% block content %}
-    <h1>Create new Leave</h1>
-
-    {{ include('leave/_form.html.twig') }}
-
-    <a href="{{ path('leave_index') }}">back to list</a>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Apply Leave</h6>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-8">
+            {{ include('leave/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
